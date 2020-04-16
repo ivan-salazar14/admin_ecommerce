@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LoadingCmpt from '../../generics/loading.cmpt';
-//import firebase from 'firebase';
+import firebase from 'firebase';
 import firestore from '../../properties/firestore';
 import M from 'materialize-css';
 import { Link } from 'react-router-dom';
