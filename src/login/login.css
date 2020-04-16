@@ -1,0 +1,11 @@
+.loginContainer .login-content{
+    height: 400px;
+}
+
+.login-content .login-body{
+    border-radius: 10px;
+}
+
+.loginContainer .footerForm{
+    height: 2rem;
+}
