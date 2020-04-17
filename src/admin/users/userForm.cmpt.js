@@ -65,15 +65,18 @@ class UserForm extends Component {
     submitForm = (event) => {
         event.preventDefault();
         this.setState({ loading: true });
-        let ref = firebase.database().ref(`/users`);
+        let ref = firebase.database().ref(`/products`);
         let data = {
-            name: this.state.name,
-            phone: this.state.phone,
-            email: this.state.email
+            description: this.state.description,
+            title: this.state.title,
+            price: this.state.price,
+            sku: this.state.sku,
+            currencyId: 'USD',
+            isFreeShipping: true,
+            availableSizes: this.state.availableSizes
         };
-
         if (this.state.id) {
-            firebase.database().ref(`/users/${this.state.id}`).update(data).then((result) => {
+            firebase.database().ref(`/products/${this.state.id}`).update(data).then((result) => {
 
                 this.setState({ loading: false }, () => {
                     M.updateTextFields();
@@ -91,7 +94,7 @@ class UserForm extends Component {
         } else {
 
             let key = ref.push().key;
-            ref = firebase.database().ref(`/users/${key}`).set(data).then((result) => {
+            ref = firebase.database().ref(`/products/${key}`).set(data).then((result) => {
                 this.setState({ loading: false, id: key }, () => {
                     M.updateTextFields();
                     M.toast({ html: "Se guardo el usuario correctamente.", classes: 'green darken-1' });
@@ -121,41 +124,75 @@ class UserForm extends Component {
                 </div>
                 <div className="row  z-depth-4">
                     <div className="col s12 center-align blue lighten-1">
-                        <h6 className="white-text">{this.state.id ? "Edición de usuario" : "Nuevo Usuario"}</h6>
+                        <h6 className="white-text">{this.state.id ? "Edición de Producto" : "Nuevo Producto"}</h6>
                     </div>
                     <form className="col s12 mt-1" onSubmit={this.submitForm}>
                         <div className="row">
                             <div className="input-field col s12">
                                 <i className="material-icons prefix">account_circle</i>
                                 <input id="name" type="text" className="validate"
-                                    value={this.state.name}
+                                    value={this.state.title}
                                     onChange={this.changeValues}
                                 />
-                                <label htmlFor="name">Nombre:</label>
+                                <label htmlFor="name">Titulo del producto:</label>
                             </div>
 
                             <div className="input-field col s12">
-                                <i className="material-icons prefix">email</i>
-                                <input id="email" type="text" className="validate"
-                                    value={this.state.email}
+                                <i className="material-icons prefix">description</i>
+                                <input id="description" type="text" className="validate"
+                                    value={this.state.description}
                                     onChange={this.changeValues}
                                 />
-                                <label htmlFor="email">Correo electrónico:</label>
+                                <label htmlFor="description">descripcion detallada:</label>
                             </div>
 
                             <div className="input-field col s12">
-                                <i className="material-icons prefix">local_phone</i>
-                                <input id="phone" type="text" className="validate"
-                                    value={this.state.phone}
+                                <i className="material-icons prefix">attach_money</i>
+                                <input id="price" type="text" className="validate"
+                                    value={this.state.price}
                                     onChange={this.changeValues}
                                 />
-                                <label htmlFor="phone">Teléfono:</label>
+                                <label htmlFor="price">Precio:</label>
                             </div>
+                            <div className="separator" />
+                            <div className="input-field col s8 push-s1">
+                                <div class="row"> <label htmlFor="availableSizes">Tipo:
+                                </label>
+                                    <select class="browser-default" value={this.state.availableSizes} onChange={this.changeValues} id="availableSizes">
+                                        <option value="" disabled >Choose your option</option>
+                                        <option value="AGUARDIENTE">AGUARDIENTE</option>
+                                        <option value="VODKA">VODKA</option>
+                                        <option value="TEQUILA">TEQUILA</option>
+                                        <option value="WHISKY">WHISKY</option>
+                                        <option value="RON">RON</option>
+                                        <option value="CERVEZA">CERVEZA</option>
+                                        <option value="CIGARRILLOS">CIGARRILLOS</option>
+                                        <option value="OTROS">OTROS</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div className="input-field col s12">
+                                <label>Materialize Multi File Input</label>
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Buscar imagen</span>
+                                        <input id="file" type="file"
+                                            value={this.state.file}
+                                            onChange={this.changeValues}
+                                        />
+                                    </div>
+
+                                </div>
+                            </div>
+
                         </div>
+
                         <div className="row">
                             <div className={`${this.state.id ? "col s6 right-align" : "col s12 center-align"} `}>
-                                <button type="submit" className="btn btn-small waves-effect blue lighten-1 text-button"><i className="material-icons right">save</i>Guardar</button>
-                            </div>
+                                {/*        <button type="submit" className="btn btn-small waves-effect blue lighten-1 text-button"><i className="material-icons right">save</i>Guardar</button>
+                          */}   </div>
                             {
                                 this.state.id ?
                                     <div className="col s6 left-align">

@@ -23,9 +23,9 @@ class Navigation extends Component {
                 <div className="navbar-fixed">
                     <nav>
                         <div className="nav-wrapper blue lighten-1">
-                            <Link to="/dashboard" className="brand-logo">InnatoDevelopers</Link>
+                            <Link to="/dashboard" className="brand-logo">Licores a Domicilio</Link>
                             <ul id="nav-mobile" className="right hide-on-med-and-down">
-                                <li><Link to="/dashboard/user"><i className="material-icons left">people</i>Usuario</Link></li>
+                                <li><Link to="/dashboard/user"><i className="material-icons left">people</i>Productos</Link></li>
                                 <li><a href="!#" onClick={this.signOut}><i className="material-icons left">power_settings_new</i>Salir</a></li>
                             </ul>
                             <ul id="nav-mobile" className="right show-on-medium-and-down">
