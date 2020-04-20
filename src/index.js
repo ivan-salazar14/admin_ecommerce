@@ -1,12 +1,16 @@
 import React from 'react';
-import firebase from 'firebase';
 import ReactDOM from 'react-dom';
-import { firebaseConfig } from './properties';
+//import firebase from 'firebase';
+//import { firebaseConfig } from './properties';
+//firebase.initializeApp(firebaseConfig);
+
 import 'materialize-css/dist/css/materialize.css';
 import RouterApp from './routing/router';
 import * as serviceWorker from './serviceWorker';
 
-//firebase.initializeApp(firebaseConfig);
+//import firestore from './properties/firestore';
+//const db = firestore.firestore();
+
 
 ReactDOM.render(<RouterApp />, document.getElementById('root'));
 

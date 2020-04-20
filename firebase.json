@@ -1,17 +1,14 @@
 {
   "hosting": {
-    "target": "licoresadomicilioadmin",
     "public": "build",
+    "target": "licoresdomicilioadmin",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "rewrites": [
-      {
-        "source": "**",
-        "destination": "/index.html"
-      }
     ]
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }

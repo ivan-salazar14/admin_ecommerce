@@ -1,5 +1,17 @@
 {
   "projects": {
-    "default": "licoresadomicilioadmin"
+    "default": "think14",
+    "licoresdomicilioadmin": "think14"
+  },
+  "targets": {
+    "think14": {
+      "hosting": {
+        "target-name": [
+          "domicilioadmin",
+          "licoresadmin",
+          "licoresdomicilioadmin"
+        ]
+      }
+    }
   }
 }
