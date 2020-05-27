@@ -16,8 +16,8 @@ class Dashboard extends Component {
             if (!user) {
                 this.props.history.push("/");
             } else {
-                this.setState({ user });
                 console.log(user.user);
+                this.setState({ user });
             }
         });
     }

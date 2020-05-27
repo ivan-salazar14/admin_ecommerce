@@ -1,19 +1,19 @@
-import React,{Component} from 'react';
-import { Route, Switch} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import UserForm from '../admin/users/userForm.cmpt';
-import UsersList from '../admin/users/usersList.cmpt';
+import ProductForm from '../admin/products/productForm.cmpt';
+import ProductsList from "../admin/products/productsList.cmpt";
 
-class AdminRouter extends Component{
+class AdminRouter extends Component {
 
-    render(){
-        return(
-           
+    render() {
+        return (
+
             <Switch>
-                <Route path="/dashboard/user/:id?" component={UserForm} />
-                <Route path="/dashboard" component={UsersList} />
+                <Route path="/dashboard/product/:id?" component={ProductForm} />
+                <Route path="/dashboard" component={ProductsList} />
             </Switch>
-         
+
         )
     }
 
