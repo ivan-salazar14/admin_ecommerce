@@ -110,11 +110,11 @@ class UserForm extends Component {
             //this.getImage(this.state.file.name)
         } else {
             alert("Please provide a valid image. (JPG o JPEG)");
+            return;
         }
 
         this.setState({ loading: true });
         let ref = firebase.database().ref(`/products`);
-        console.log('data1', this.state.fields)
         let data = {
             description: this.state.fields.description,
             title: this.state.fields.description,
@@ -122,7 +122,7 @@ class UserForm extends Component {
             sku: fileName.replace(".jpg", ""),
             currencyId: 'USD',
             isFreeShipping: true,
-            availableSizes: this.state.fields.availableSizes
+            availableSizes: [this.state.fields.availableSizes]
         };
         console.log('data', data)
         if (this.state.id) {
