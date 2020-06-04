@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import LoadingCmpt from '../../generics/loading.cmpt';
-import firestore from '../../properties/firestore';
+import { firestore } from '../../properties/firestore';
 import M from 'materialize-css';
 import { Link } from 'react-router-dom';
 
 const db = firestore.firestore();
 
-class UsersList extends Component {
+class OrdersList extends Component {
 
     state = {
-        users: [],
+        orders: [],
         loading: true
     }
 
@@ -41,7 +41,7 @@ class UsersList extends Component {
                 sale.id = doc.id;
                 sales.push(sale);
             });
-            me.setState({ users: sales, loading: false });
+            me.setState({ orders: sales, loading: false });
         });
     }
 
@@ -55,7 +55,7 @@ class UsersList extends Component {
             <div className="container">
                 <div className="row  z-depth-4">
                     <div className="col s12 center-align blue lighten-1">
-                        <h6 className="white-text">Pedidos Pendientes u</h6>
+                        <h6 className="white-text">Pedidos Pendientes</h6>
                     </div>
                     <div className="row">
                         <table className="highlight">
@@ -71,13 +71,12 @@ class UsersList extends Component {
                             </thead>
                             <tbody>
                                 {
-                                    this.state.users.map((value, index) => {
-
+                                    this.state.orders.map((value, index) => {
                                         const listItems = value.cartProducts.map((number) =>
                                             <li>{number.price + " " + number.description}</li>
                                         );
                                         return (
-                                            value.delivered != true ?
+                                            value.delivered !== true ?
                                                 <tr key={index}>
                                                     <td className="center-align hide-on-small-only">{value.name}</td>
                                                     <td>{value.address}</td>
@@ -121,13 +120,13 @@ class UsersList extends Component {
                             </thead>
                             <tbody>
                                 {
-                                    this.state.users.map((value, index) => {
+                                    this.state.orders.map((value, index) => {
 
                                         const listItems = value.cartProducts.map((number) =>
                                             <li>{number.price + " " + number.description}</li>
                                         );
                                         return (
-                                            value.delivered == true ?
+                                            value.delivered === true ?
                                                 <tr key={index}>
                                                     <td className="center-align hide-on-small-only">{value.name}</td>
                                                     <td>{value.address}</td>
@@ -158,4 +157,4 @@ class UsersList extends Component {
 }
 
 
-export default UsersList;
+export default OrdersList;

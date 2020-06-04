@@ -223,7 +223,13 @@ class UserForm extends Component {
                                         <option value="TEQUILA">TEQUILA</option>
                                         <option value="WHISKY">WHISKY</option>
                                         <option value="RON">RON</option>
-                                        <option value="CERVEZA">CERVEZA</option>
+                                        <option value="CERVEZAS">CERVEZAS</option>
+                                        <option value="GASEOSAS">GASEOSAS</option>
+                                        <option value="AGUAS">AGUAS</option>
+                                        <option value="ENERGIZANTES">ENERGIZANTES</option>
+                                        <option value="PASABOCAS">PASABOCAS</option>
+                                        <option value="BRANDY">BRANDY</option>
+                                        <option value="GINEBRA">GINEBRA</option>
                                         <option value="CIGARRILLOS">CIGARRILLOS</option>
                                         <option value="VINOS">VINOS</option>
                                         <option value="OTROS">OTROS</option>

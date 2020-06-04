@@ -34,14 +34,14 @@ class ProductsList extends Component {
     }
     componentWillMount() {
         var me = this;
-        db.collection("sales").onSnapshot(function (querySnapshot) {
-            var sales = [];
+        db.collection("products").onSnapshot(function (querySnapshot) {
+            var products = [];
             querySnapshot.forEach(function (doc) {
                 let sale = doc.data();
                 sale.id = doc.id;
-                sales.push(sale);
+                products.push(sale);
             });
-            me.setState({ products: sales, loading: false });
+            me.setState({ products: products, loading: false });
         });
     }
 
@@ -55,88 +55,28 @@ class ProductsList extends Component {
             <div className="container">
                 <div className="row  z-depth-4">
                     <div className="col s12 center-align blue lighten-1">
-                        <h6 className="white-text">Pedidos Pendientes</h6>
+                        <h6 className="white-text">Productos</h6>
                     </div>
                     <div className="row">
                         <table className="highlight">
                             <thead>
                                 <tr>
                                     <th className="center-align hide-on-small-only">Nombre</th>
-                                    <th className="center-align">Direccion</th>
-                                    <th className="center-align hide-on-small-only">Teléfono</th>
-                                    <th className="center-align">Detalle</th>
-                                    <th className="center-align hide-on-small-only">Total</th>
+                                    <th className="center-align hide-on-small-only">Precio</th>
+                                    {/*   <th className="center-align">Detalle</th> */}
+                                    <th className="center-align hide-on-small-only">Tipo</th>
                                     <th className="center-align">Marcar</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
                                     this.state.products.map((value, index) => {
-
-                                        const listItems = value.cartProducts.map((number) =>
-                                            <li>{number.price + " " + number.description}</li>
-                                        );
                                         return (
-                                            value.delivered !== true ?
-                                                <tr key={index}>
-                                                    <td className="center-align hide-on-small-only">{value.name}</td>
-                                                    <td>{value.address}</td>
-                                                    <td className="center-align hide-on-small-only">{value.phone}</td>
-                                                    <td>
-                                                        <ul>{listItems}</ul>
-                                                    </td>
-                                                    <td className="center-align hide-on-small-only">{value.total}</td>
-                                                    <td className="center-align ">
-                                                        <Link onClick={() => this.proceedToCheckout(value)} className="btn-floating btn-large blue">
-                                                            check </Link>
-                                                        {/*  <Link to={`/dashboard/user/${value.id}`} className="btn-flat waves-effect waves-light">
-                                                        
-                                                    </Link> */}
-                                                    </td>
-                                                </tr> : null
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-
-                <div className="row  z-depth-4">
-                    <div className="col s12 center-align blue lighten-1">
-                        <h6 className="white-text">Pedidos Finalizados</h6>
-                    </div>
-                    <div className="row">
-                        <table className="highlight">
-                            <thead>
-                                <tr>
-                                    <th className="center-align hide-on-small-only">Nombre</th>
-                                    <th className="center-align">Direccion</th>
-                                    <th className="center-align hide-on-small-only">Teléfono</th>
-                                    <th className="center-align">Detalle</th>
-                                    <th className="center-align hide-on-small-only">Total</th>
-                                    <th className="center-align">Marcar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    this.state.products.map((value, index) => {
-
-                                        const listItems = value.cartProducts.map((number) =>
-                                            <li>{number.price + " " + number.description}</li>
-                                        );
-                                        return (
-                                            value.delivered === true ?
-                                                <tr key={index}>
-                                                    <td className="center-align hide-on-small-only">{value.name}</td>
-                                                    <td>{value.address}</td>
-                                                    <td className="center-align hide-on-small-only">{value.phone}</td>
-                                                    <td>
-                                                        <ul>{listItems}</ul>
-                                                    </td>
-                                                    <td className="center-align hide-on-small-only">{value.total}</td>
-                                                </tr> : null
+                                            <tr key={index}>
+                                                <td className="center-align hide-on-small-only">{value.description}</td>
+                                                <td className="center-align hide-on-small-only">{value.price}</td>
+                                                <td className="center-align hide-on-small-only">{value.availableSizes[0]}</td>
+                                            </tr>
                                         )
                                     })
                                 }
