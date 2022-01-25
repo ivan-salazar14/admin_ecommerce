@@ -14,14 +14,15 @@ class UserForm extends Component {
         this.state = {
             loading: true,
             fields: {
-                name: "Nombre",
                 description: "",
-                email: "",
                 title: "",
                 sku: "",
                 price: "",
                 availableSizes: "",
-                phone: "",
+                id:"",
+                isFreeShipping:true,
+                installments: 0,
+                currencyId: "USD",
             },
             error: null,
             percent: 0,
@@ -47,8 +48,9 @@ class UserForm extends Component {
     componentWillMount() {
         if (this.props.match) {
             let { id } = this.props.match.params;
+            console.log('id llegoo ',id)
             if (id) {
-                this.getInfoUser(id)
+                this.getProduct(id)
             } else {
                 this.setState({ loading: false });
             }
@@ -58,19 +60,35 @@ class UserForm extends Component {
     //create ref
     fileInputRef = React.createRef();
 
-    getInfoUser(id) {
-        firebase.collection().ref(`/users/${id}`).once('value', (snap) => {
-            if (snap.val()) {
-                let { name, email, phone } = snap.val();
-                this.setState({ name, email, phone, id, loading: false }, () => {
-                    M.updateTextFields();
-                });
-            } else {
-                this.setState({ loading: false }, () => {
-                    M.toast({ html: "No se encontro al producto", classes: 'red darken-1' })
-                });
-            }
-        });
+    async getProduct(idDoc) {
+        const productRef= db.collection('products').doc(`${idDoc}`);
+        console.log('productRef ',productRef)
+        const doc = await productRef.get();
+        let fields = {
+            description: "",
+            title: "",
+            sku: "",
+            price: "",
+            availableSizes: "",
+            id:"",
+            isFreeShipping:true,
+            installments: 0,
+            currencyId: "USD",
+        }
+        if (!doc.exists) {
+            console.log('No such document!');
+            this.setState({fields, loading: false }, () => {
+                M.toast({ html: "No se encontro al producto", classes: 'red darken-1' })
+            });
+        } else {
+        console.log('Document data:', doc.data());
+        let { description, price,availableSizes,title,sku} = doc.data();
+         fields ={ description, price, id:idDoc ,availableSizes,title,sku};
+            this.setState({fields, loading: false }, () => {
+                M.updateTextFields();
+            });
+        }
+    
     }
 
     deleteUser = (event) => {
@@ -85,10 +103,42 @@ class UserForm extends Component {
         }
     }
 
-    submitForm = (event) => {
+    submitForm = async (event) => {
         event.preventDefault();
 
-        //check if the file is exists
+        this.setState({ loading: true });
+        let ref = firebase.database().ref(`/products`);
+        let data = {
+            description: this.state.fields.description,
+            title: this.state.fields.description,
+            price: this.state.fields.price,
+            sku: this.state.fields.sku,
+            currencyId: 'USD',
+            isFreeShipping: true,
+            availableSizes: this.state.fields.availableSizes,
+            id:this.state.fields.id,
+        };
+        console.log('data', data)
+        console.log('this.state.fields.id ', this.state.fields.id)
+        if (this.state.fields.id) {
+            const result = await db.collection(`products`).doc(`${this.state.fields.id}`).set(data);
+            if(!result) {
+                this.setState({ loading: false }, () => {
+                    M.updateTextFields();
+                    M.toast({ html: "Se actualizo el producto correctamente.", classes: 'green darken-1' });
+                });
+
+            }else {
+                console.log('error on save', result);
+                this.setState({ loading: false }, () => {
+                    M.updateTextFields();
+                    M.toast({ html: "No se logro actualizar al producto", classes: 'red darken-1' });
+                });
+
+            }
+        } else {
+
+               //check if the file is exists
         if (this.state.file === null) {
             alert("No image is selected!");
             return;
@@ -112,36 +162,6 @@ class UserForm extends Component {
             alert("Please provide a valid image. (JPG o JPEG)");
             return;
         }
-
-        this.setState({ loading: true });
-        let ref = firebase.database().ref(`/products`);
-        let data = {
-            description: this.state.fields.description,
-            title: this.state.fields.description,
-            price: this.state.fields.price,
-            sku: fileName.replace(".jpg", ""),
-            currencyId: 'USD',
-            isFreeShipping: true,
-            availableSizes: [this.state.fields.availableSizes]
-        };
-        console.log('data', data)
-        if (this.state.id) {
-            db.collection(`/products/${this.state.id}`).update(data).then((result) => {
-
-                this.setState({ loading: false }, () => {
-                    M.updateTextFields();
-                    M.toast({ html: "Se actualizo el producto correctamente.", classes: 'green darken-1' });
-                });
-
-            }).catch((error) => {
-                console.log('error', error);
-                this.setState({ loading: false }, () => {
-                    M.updateTextFields();
-                    M.toast({ html: "No se logro actualizar al producto", classes: 'red darken-1' });
-                });
-
-            });
-        } else {
 
             let key = ref.push().key;
             db.collection('products').add(data).then((result) => {

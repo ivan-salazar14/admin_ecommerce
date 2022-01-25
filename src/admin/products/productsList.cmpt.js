@@ -61,11 +61,10 @@ class ProductsList extends Component {
                         <table className="highlight">
                             <thead>
                                 <tr>
-                                    <th className="center-align hide-on-small-only">Nombre</th>
-                                    <th className="center-align hide-on-small-only">Precio</th>
-                                    {/*   <th className="center-align">Detalle</th> */}
-                                    <th className="center-align hide-on-small-only">Tipo</th>
-                                    <th className="center-align">Marcar</th>
+                                    <th className="center-align ">Nombre</th>
+                                   <th className="center-align hide-on-small-only">Precio</th>
+                                      <th className="center-align">Detalle</th>
+                                    <th className="center-align">Editar</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,9 +72,13 @@ class ProductsList extends Component {
                                     this.state.products.map((value, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td className="center-align hide-on-small-only">{value.description}</td>
-                                                <td className="center-align hide-on-small-only">{value.price}</td>
-                                                <td className="center-align hide-on-small-only">{value.availableSizes[0]}</td>
+                                                <td className="center-align ">{value.description}</td>
+                                               <td className="center-align hide-on-small-only">{value.price}</td>
+                                                 <td className="center-align hide-on-small-only">{value.availableSizes[0]}</td> 
+                                                <td className="center-align ">
+                                                    <Link to={`/dashboard/product/${value.id}`} className="btn-floating red">
+                    <i className="large material-icons">add</i>
+                </Link></td>
                                             </tr>
                                         )
                                     })
@@ -87,9 +90,7 @@ class ProductsList extends Component {
 
 
 
-                {/*   <Link to="/dashboard/user" className="btn-floating btn-large red">
-                    <i className="large material-icons">add</i>
-                </Link> */}
+                {/*    */}
             </div>
         )
     }

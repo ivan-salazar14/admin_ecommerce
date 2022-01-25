@@ -1,14 +1,14 @@
 import firebase from "firebase";
 import 'firebase/storage'
 const config = {
-    apiKey: process.env.REACT_APP_apiKey,
-    authDomain: process.env.REACT_APP_authDomain,
-    databaseURL: process.env.REACT_APP_databaseURL,
-    projectId: process.env.REACT_APP_projectId,
-    storageBucket: process.env.REACT_APP_storageBucket,
-    messagingSenderId: process.env.REACT_APP_messagingSenderId,
-    appId: process.env.REACT_APP_appId,
-    measurementId: process.env.REACT_APP_measurementId
+    apiKey: "AIzaSyBsDAo7ely8Kaw6sM0Kvlb7lbraLRRx-L0",
+    authDomain: "think14.firebaseapp.com",
+    databaseURL: "https://think14.firebaseio.com",
+    projectId: "think14",
+    storageBucket: "think14.appspot.com",
+    messagingSenderId: "302274465556",
+    appId: "1:302274465556:web:158c38e7a23a01fae3bc01",
+    measurementId: "G-YP9YRLE43H"
 };
 
 console.log('env ')
